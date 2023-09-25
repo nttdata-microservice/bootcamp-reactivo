@@ -1,29 +1,25 @@
 package com.nttdata.reactivo;
 
 import com.nttdata.reactivo.model.Account;
+import com.nttdata.reactivo.service.AccountService;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.MaybeObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class MaybeExample {
-  private Maybe<Account> getAccountById(Integer id) {
-    return Maybe.create(emitter -> {
-      if (id < 0) {
-        emitter.onError(new Throwable("Constraint detected"));
-      } else if ( id < 100) {
-        emitter.onSuccess(new Account(id, "Diaz", "Bueno"));
-      } else {
-        emitter.onComplete();
-      }
-    });
-  }
+
+  private final AccountService accountService;
+
   public void runEndpoint() {
-    Maybe<Account> maybe = this.getAccountById(205);
+    Maybe<Account> maybe = accountService.getAccountByIdMaybe(600);
+
     maybe.subscribe(new MaybeObserver<Account>() {
       @Override
       public void onSubscribe(@NonNull Disposable d) {
-        System.out.println("Subscribing Account");
+        System.out.println("Maybe - Subscribing Account");
       }
       @Override
       public void onSuccess(@NonNull Account account) {

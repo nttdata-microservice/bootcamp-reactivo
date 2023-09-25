@@ -3,8 +3,6 @@ package com.nttdata.reactivo;
 import com.nttdata.reactivo.model.Account;
 import com.nttdata.reactivo.service.AccountService;
 import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.MaybeObserver;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -17,7 +15,8 @@ public class SingleExample {
 
   public void runEndpoint() {
 
-    Single<Account> single = accountService.getAccountById(-2);
+    Single<Account> single = accountService.getAccountByIdSingle(200);
+
 
     single.subscribe(new SingleObserver<Account>() {
       @Override
