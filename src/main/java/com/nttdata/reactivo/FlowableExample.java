@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.BackpressureStrategy;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.FlowableSubscriber;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import lombok.AllArgsConstructor;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -25,9 +26,6 @@ public class FlowableExample {
     }, BackpressureStrategy.BUFFER);
 
     Flowable<Integer> flowableInt = Flowable.just(1, 2, 3, 4, 5, 6, 7);
-
-    List<String> names = Arrays.asList("Juan", "Jose", "Maria");
-    Flowable<String> flowableStr = Flowable.fromIterable(names);
 
     flowable.subscribe(new Subscriber<String>() {
       @Override
@@ -72,6 +70,13 @@ public class FlowableExample {
         System.out.println("Flowable completed");
       }
     });
+
+    List<String> names = Arrays.asList("Juan", "Jose", "Maria");
+    Flowable<String> flowableStr = Flowable.fromIterable(names);
+
+    flowableStr
+        .subscribeOn(Schedulers.io())
+        .subscribe(System.out::println);
   }
 
 }

@@ -12,8 +12,8 @@ public class Main {
     /*SingleExample singleExample = new SingleExample(accountService);
     singleExample.runEndpoint();*/
 
-    /*MaybeExample maybeExample = new MaybeExample(accountService);
-    maybeExample.runEndpoint();*/
+    MaybeExample maybeExample = new MaybeExample(accountService);
+    maybeExample.runEndpoint();
 
     /*CompletableExample completableExample = new CompletableExample(accountService);
     completableExample.runExample();*/

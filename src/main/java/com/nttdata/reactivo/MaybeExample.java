@@ -5,7 +5,9 @@ import com.nttdata.reactivo.service.AccountService;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.MaybeObserver;
+import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -15,6 +17,11 @@ public class MaybeExample {
 
   public void runEndpoint() {
     Maybe<Account> maybe = accountService.getAccountByIdMaybe(600);
+    /*
+        .doOnError(throwable -> throwable.getMessage())
+        .subscribeOn(Schedulers.io());
+
+    maybe.subscribe(System.out::println);*/
 
     maybe.subscribe(new MaybeObserver<Account>() {
       @Override
